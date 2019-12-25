@@ -1,5 +1,5 @@
-<#import "parts/common.ftl" as c>
-<#import "parts/login.ftl" as l>
+<#import "parts/common.ftlh" as c>
+<#import "parts/login.ftlh" as l>
 
 <@c.page>
 <div>
@@ -16,7 +16,7 @@
 <div>Message List</div>
 <form method="get" action="/main">
     <input type="text" name="filter" value="${filter}">
-    <button type="submit">Find</button>
+    <button type="submit">Найти</button>
 </form>
 <#list messages as message>
     <div>
