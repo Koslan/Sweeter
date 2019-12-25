@@ -2,7 +2,7 @@ package com.example.sweater.controller;
 
 import com.example.sweater.model.Role;
 import com.example.sweater.model.User;
-import com.example.sweater.repository.UserRepository;
+import com.example.sweater.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,23 +14,25 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepo;
 
     @GetMapping("/registration")
-    public String registration(){
+    public String registration() {
         return "registration";
     }
 
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb != null){
+        User userFromDb = userRepo.findByUsername(user.getUsername());
+
+        if (userFromDb != null) {
             model.put("message", "User exists!");
             return "registration";
         }
+
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
+        userRepo.save(user);
 
         return "redirect:/login";
     }
